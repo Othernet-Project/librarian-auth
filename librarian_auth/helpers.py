@@ -87,7 +87,6 @@ def create_user(username, password, is_superuser=False, db=None,
 
 def get_user(username, db=None):
     db = db or request.db.sessions
-    print(id(db))
     query = db.Select(sets='users', where='username = ?')
     db.query(query, username)
     user = db.result
