@@ -1,4 +1,5 @@
 from .commands import create_superuser
+from .menuitems import LogoutMenuItem
 from .utils import generate_secret_key
 
 from librarian_setup.decorators import autoconfigure
@@ -18,3 +19,4 @@ def initialize(supervisor):
                                       '--no-auth',
                                       action='store_true',
                                       help='disable authentication')
+    supervisor.exts.menuitems.register(LogoutMenuItem)
