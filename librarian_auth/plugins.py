@@ -7,7 +7,7 @@ from .users import User
 
 
 EXPORTS = {
-    'session_plugin': {'depends_on': ['librarian_sqlite.plugins.plugin']},
+    'session_plugin': {},
     'user_plugin': {'depends_on': ['librarian_auth.plugins.session_plugin']}
 }
 
