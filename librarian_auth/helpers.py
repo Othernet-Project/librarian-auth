@@ -1,8 +1,10 @@
 import functools
-import urllib
-import urlparse
 
-from bottle import request
+from bottle import request, redirect
+
+from bottle_utils.i18n import i18n_path
+
+from .options import Options
 
 
 def identify_database(func):
@@ -13,18 +15,11 @@ def identify_database(func):
     return wrapper
 
 
-def get_redirect_path(base_path, next_path, next_param_name='next'):
-    QUERY_PARAM_IDX = 4
+@Options.handler('language')
+def handle_language(language):
+    return  # FIXME: find some way to check for original requested path
+    if language and request.locale == language:
+        # redirect only requests without a locale prefixed path
+        redirect(i18n_path(locale=language))
 
-    next_encoded = urllib.urlencode({next_param_name: next_path})
-
-    parsed = urlparse.urlparse(base_path)
-    new_path = list(parsed)
-
-    if parsed.query:
-        new_path[QUERY_PARAM_IDX] = '&'.join([new_path[QUERY_PARAM_IDX],
-                                              next_encoded])
-    else:
-        new_path[QUERY_PARAM_IDX] = next_encoded
-
-    return urlparse.urlunparse(new_path)
+    return request.locale

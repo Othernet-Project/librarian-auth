@@ -41,6 +41,7 @@ class User(BaseUser):
 
     InvalidUserCredentials = InvalidUserCredentials
 
+    @identify_database
     def __init__(self, username=None, password=None, reset_token=None,
                  created=None, options=None, groups=None, db=None):
         self.username = username
@@ -48,7 +49,7 @@ class User(BaseUser):
         self.reset_token = reset_token
         self.created = created
         self.options = Options(options, onchange=self.save)
-        self.db = db or request.db.sessions
+        self.db = db
         groups = [Group.from_name(name, db=db) for name in from_csv(groups)]
         super(User, self).__init__(groups=groups)
 

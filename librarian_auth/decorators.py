@@ -1,11 +1,21 @@
 import functools
+import urllib
+import urlparse
 
 from bottle import abort, request, redirect
 
-from .helpers import get_redirect_path
-
 
 def login_required(redirect_to='/login/', superuser_only=False, next_to=None):
+    def get_redirect_path(base_path, next_path, next_param_name='next'):
+        QUERY_PARAM_IDX = 4
+        next_encoded = urllib.urlencode({next_param_name: next_path})
+        parsed = urlparse.urlparse(base_path)
+        new_path = list(parsed)
+        # filter will drop falsey values
+        params = filter(None, [new_path[QUERY_PARAM_IDX], next_encoded])
+        new_path[QUERY_PARAM_IDX] = '&'.join(params)
+        return urlparse.urlunparse(new_path)
+
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):

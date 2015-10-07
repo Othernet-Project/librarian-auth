@@ -3,11 +3,12 @@ from bottle import request
 from librarian_setup.setup import setup_wizard
 
 from .forms import RegistrationForm
+from .helpers import identify_database
 from .users import User
 
 
-def has_no_superuser():
-    db = request.db.sessions
+@identify_database
+def has_no_superuser(db):
     query = db.Select(sets='users', where="groups LIKE :group")
     db.query(query, group='%superuser%')
     return db.result is None

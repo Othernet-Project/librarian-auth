@@ -12,10 +12,6 @@ import copy
 import datetime
 import json
 
-from bottle import request, redirect
-
-from bottle_utils.i18n import i18n_path
-
 
 class DateTimeEncoder(json.JSONEncoder):
 
@@ -48,6 +44,8 @@ class DateTimeDecoder(json.JSONDecoder):
 class Options(object):
     """A dict-like object with a callback that is invoked when changes are made
     to the object's state."""
+    _handlers = dict()
+
     def __init__(self, data, onchange):
         self.onchange = onchange
         if isinstance(data, dict):
@@ -85,10 +83,20 @@ class Options(object):
         return copy.copy(self.__data)
 
     def apply(self):
-        language = request.user.options.get('language')
-        i18n_prefix = '/{0}/'.format(request.locale)
-        # redirect only requests without a locale prefixed path
-        if language and not request.original_path.startswith(i18n_prefix):
-            redirect(i18n_path(locale=language))
+        for name, handler in self._handlers.items():
+            value = self.get(name)
+            result = handler(value)
+            if result is not None:
+                self[name] = result
 
-        request.user.options['language'] = request.locale
+    @classmethod
+    def add_handler(cls, name, fn):
+        cls._handlers[name] = fn
+
+    @classmethod
+    def handler(cls, name):
+        """Register an option handler function."""
+        def decorator(fn):
+            cls.add_handler(name, fn)
+            return fn
+        return decorator

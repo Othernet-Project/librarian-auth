@@ -1,7 +1,6 @@
-from bottle import request
-
 from librarian_core.contrib.auth.acl import BaseGroup
 
+from .helpers import identify_database
 from .utils import from_csv, row_to_dict
 
 
@@ -11,13 +10,14 @@ class GroupNotFound(Exception):
 
 class Group(BaseGroup):
 
-    def __init__(self, db=None, *args, **kwargs):
-        self.db = db or request.db.sessions
+    @identify_database
+    def __init__(self, db, *args, **kwargs):
+        self.db = db
         super(Group, self).__init__(*args, **kwargs)
 
     @classmethod
-    def from_name(cls, group_name, db=None):
-        db = db or request.db.sessions
+    @identify_database
+    def from_name(cls, group_name, db):
         query = db.Select(sets='groups', where='name = :name')
         db.query(query, name=group_name)
         group = db.result
