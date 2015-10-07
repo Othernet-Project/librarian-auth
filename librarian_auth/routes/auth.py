@@ -18,7 +18,7 @@ from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import view, template
 
 from ..forms import LoginForm, PasswordResetForm
-from ..helpers import get_user_by_reset_token, set_password
+from ..users import User
 from ..utils import http_redirect
 
 
@@ -72,12 +72,12 @@ def reset():
     if request.user.is_authenticated:
         username = request.user.username
     else:
-        user = get_user_by_reset_token(form.processed_data['reset_token'])
+        user = User.from_reset_token(form.processed_data['reset_token'])
         if not user:
             form._error = ValidationError('invalid_token', {'value': ''})
             return dict(next_path=next_path, form=form)
         username = user.username
-    set_password(username, form.processed_data['password1'])
+    User.set_password(username, form.processed_data['password1'])
     if request.user.is_authenticated:
         request.user.logout()
     login_url = i18n_url('auth:login_form') + set_qparam(

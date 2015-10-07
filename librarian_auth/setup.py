@@ -3,7 +3,7 @@ from bottle import request
 from librarian_setup.setup import setup_wizard
 
 from .forms import RegistrationForm
-from .helpers import generate_reset_token, create_user
+from .users import User
 
 
 def has_no_superuser():
@@ -17,7 +17,7 @@ def has_no_superuser():
                             method='GET', index=3, test=has_no_superuser)
 def setup_superuser_form():
     return dict(form=RegistrationForm(),
-                reset_token=generate_reset_token())
+                reset_token=User.generate_reset_token())
 
 
 @setup_wizard.register_step('superuser', template='setup/step_superuser.tpl',
@@ -28,7 +28,7 @@ def setup_superuser():
     if not form.is_valid():
         return dict(successful=False, form=form, reset_token=reset_token)
 
-    create_user(form.processed_data['username'],
+    User.create(form.processed_data['username'],
                 form.processed_data['password1'],
                 is_superuser=True,
                 db=request.db.sessions,

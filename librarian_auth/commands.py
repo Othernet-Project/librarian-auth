@@ -1,6 +1,6 @@
 import getpass
 
-from .helpers import create_user, InvalidUserCredentials
+from .users import User
 
 
 def create_superuser(arg, supervisor):
@@ -13,14 +13,14 @@ def create_superuser(arg, supervisor):
         raise supervisor.EarlyExit("Aborted", exit_code=1)
 
     try:
-        reset_token = create_user(username=username,
-                                  password=password,
-                                  is_superuser=True,
-                                  db=supervisor.exts.databases.sessions,
-                                  overwrite=True)
+        user = User.create(username=username,
+                           password=password,
+                           is_superuser=True,
+                           db=supervisor.exts.databases.sessions,
+                           overwrite=True)
         print("User created. The password reset token is: {}".format(
-            reset_token))
-    except InvalidUserCredentials:
+            user.reset_token))
+    except User.InvalidUserCredentials:
         print("Invalid user credentials, please try again.")
         create_superuser(arg, supervisor)
 

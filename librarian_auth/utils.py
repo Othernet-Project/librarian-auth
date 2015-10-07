@@ -27,8 +27,19 @@ def http_redirect(path, code=303):
     return response
 
 
-def generate_secret_key(length=50):
-    charset = [string.ascii_letters, string.digits, string.punctuation]
+def generate_random_key(letters=True, digits=True, punctuation=True,
+                        length=50):
+    charset = []
+    if letters:
+        charset.append(string.ascii_letters)
+    if digits:
+        charset.append(string.digits)
+    if punctuation:
+        charset.append(string.punctuation)
+
+    if not charset:
+        return ''
+
     chars = (''.join(charset).replace('\'', '')
                              .replace('"', '')
                              .replace('\\', ''))
@@ -44,4 +55,4 @@ def to_csv(values):
 
 
 def row_to_dict(row):
-    return dict((key, row[key]) for key in row.keys())
+    return dict((key, row[key]) for key in row.keys()) if row else {}

@@ -1,12 +1,12 @@
 from .commands import create_superuser
 from .menuitems import LogoutMenuItem
-from .utils import generate_secret_key
+from .utils import generate_random_key
 
 from librarian_setup.decorators import autoconfigure
 
 
-autoconfigure('session.secret')(generate_secret_key)
-autoconfigure('csrf.secret')(generate_secret_key)
+autoconfigure('session.secret')(generate_random_key)
+autoconfigure('csrf.secret')(generate_random_key)
 
 
 def initialize(supervisor):

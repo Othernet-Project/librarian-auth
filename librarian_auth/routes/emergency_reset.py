@@ -17,7 +17,7 @@ from bottle_utils.csrf import csrf_protect, csrf_token
 from librarian_core.contrib.templates.renderer import view, template
 
 from ..forms import EmergencyResetForm
-from ..helpers import generate_reset_token, create_user
+from ..users import User
 
 
 @view('emergency_reset')
@@ -42,7 +42,7 @@ def show_emergency_reset_form():
         return redirect(i18n_url('auth:reset_form'))
 
     return dict(form=EmergencyResetForm(),
-                reset_token=generate_reset_token())
+                reset_token=User.generate_reset_token())
 
 
 @view('emergency_reset')
@@ -60,7 +60,7 @@ def reset():
     query = db.Delete('sessions')
     db.query(query)
     username = form.processed_data['username']
-    create_user(username,
+    User.create(username,
                 form.processed_data['password1'],
                 is_superuser=True,
                 db=request.db.sessions,

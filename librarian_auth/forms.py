@@ -16,7 +16,7 @@ from bottle import request
 from bottle_utils import form
 from bottle_utils.i18n import lazy_gettext as _
 
-from .helpers import login_user
+from .users import User
 
 
 class TokenValidator(form.Validator):
@@ -65,7 +65,7 @@ class LoginForm(form.Form):
         username = self.processed_data['username']
         password = self.processed_data['password']
 
-        if not login_user(username, password):
+        if not User.login(username, password):
             raise form.ValidationError('login_error', {})
 
 
