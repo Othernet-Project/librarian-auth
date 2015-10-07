@@ -85,9 +85,7 @@ class Options(object):
     def apply(self):
         for name, handler in self._handlers.items():
             value = self.get(name)
-            result = handler(value)
-            if result is not None:
-                self[name] = result
+            handler(self, value)
 
     @classmethod
     def add_handler(cls, name, fn):

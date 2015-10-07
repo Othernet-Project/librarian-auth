@@ -16,10 +16,16 @@ def identify_database(func):
 
 
 @Options.handler('language')
-def handle_language(language):
+def handle_language(options, language):
     return  # FIXME: find some way to check for original requested path
     if language and request.locale == language:
         # redirect only requests without a locale prefixed path
         redirect(i18n_path(locale=language))
 
-    return request.locale
+    options['language'] = request.locale
+
+
+@Options.handler('default_route')
+def handle_default_route(options, default_route):
+    if default_route:
+        request.default_route = default_route
