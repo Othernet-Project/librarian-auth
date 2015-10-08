@@ -45,6 +45,7 @@ def user_plugin(supervisor):
     @supervisor.app.hook('after_request')
     def store_user_in_session():
         if hasattr(request, 'session') and hasattr(request, 'user'):
+            request.user.options.collect()
             request.session['user'] = request.user.to_json()
 
     def plugin(callback):
@@ -53,7 +54,7 @@ def user_plugin(supervisor):
             request.no_auth = supervisor.config['args'].no_auth
             user_data = request.session.get('user', '{}')
             request.user = User.from_json(user_data)
-            request.user.options.apply()
+            request.user.options.process()
             return callback(*args, **kwargs)
 
         return wrapper

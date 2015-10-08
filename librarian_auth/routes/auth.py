@@ -40,6 +40,7 @@ def login():
 
     form = LoginForm(request.params)
     if form.is_valid():
+        request.user.options.process('language')
         return http_redirect(i18n_path(next_path))
 
     return dict(next_path=next_path, form=form)

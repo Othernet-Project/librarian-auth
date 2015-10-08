@@ -1,7 +1,6 @@
 import functools
 
-from bottle import request, redirect
-from bottle_utils.i18n import i18n_path
+from bottle import request, response
 
 from .options import Options
 
@@ -14,15 +13,19 @@ def identify_database(func):
     return wrapper
 
 
-@Options.handler('language')
-def handle_language(options, language):
-    if request.query.get('action') == 'change':
-        options['language'] = request.locale
-    elif language and request.locale != language:
-        redirect(i18n_path(locale=language))
+@Options.collector('language')
+def collect_language(options):
+    return request.locale
 
 
-@Options.handler('default_route')
-def handle_default_route(options, default_route):
+@Options.processor('language', is_explicit=True)
+def process_language(options, language):
+    if language and request.locale != language:
+        request.locale = language
+        response.set_cookie('locale', language, path='/')
+
+
+@Options.processor('default_route')
+def process_default_route(options, default_route):
     if default_route:
         request.default_route = default_route
