@@ -11,16 +11,17 @@ file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 import os
 
 from bottle import request, abort, redirect
+from bottle_utils.ajax import roca_view
 from bottle_utils.i18n import i18n_url, lazy_gettext as _
 from bottle_utils.csrf import csrf_protect, csrf_token
 
-from librarian_core.contrib.templates.renderer import view, template
+from librarian_core.contrib.templates.renderer import template
 
 from ..forms import EmergencyResetForm
 from ..users import User
 
 
-@view('emergency_reset')
+@roca_view('emergency_reset', '_emergency_reset', template_func=template)
 @csrf_token
 def show_emergency_reset_form():
     config = request.app.config
@@ -45,7 +46,7 @@ def show_emergency_reset_form():
                 reset_token=User.generate_reset_token())
 
 
-@view('emergency_reset')
+@roca_view('emergency_reset', '_emergency_reset', template_func=template)
 @csrf_protect
 def reset():
     reset_token = request.params.get('reset_token')

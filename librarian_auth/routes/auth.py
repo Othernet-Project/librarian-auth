@@ -9,13 +9,14 @@ file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 """
 
 from bottle import request
+from bottle_utils.ajax import roca_view
 from bottle_utils.html import set_qparam
 from bottle_utils.form import ValidationError
 from bottle_utils.csrf import csrf_protect, csrf_token
 from bottle_utils.i18n import i18n_path, i18n_url, lazy_gettext as _
 
 from librarian_core.contrib.templates.decorators import template_helper
-from librarian_core.contrib.templates.renderer import view, template
+from librarian_core.contrib.templates.renderer import template
 
 from ..forms import LoginForm, PasswordResetForm
 from ..users import User
@@ -27,13 +28,13 @@ def is_authenticated():
     return not request.no_auth and request.user.is_authenticated
 
 
-@view('login')
+@roca_view('login', '_login', template_func=template)
 @csrf_token
 def show_login_form():
     return dict(form=LoginForm(), next_path=request.params.get('next', '/'))
 
 
-@view('login')
+@roca_view('login', '_login', template_func=template)
 @csrf_protect
 def login():
     next_path = request.params.get('next', '/')
@@ -52,14 +53,14 @@ def logout():
     http_redirect(i18n_path(next_path))
 
 
-@view('reset_password')
+@roca_view('reset_password', '_reset_password', template_func=template)
 @csrf_token
 def show_reset_form():
     next_path = request.params.get('next', '/')
     return dict(next_path=next_path, form=PasswordResetForm())
 
 
-@view('reset_password')
+@roca_view('reset_password', '_reset_password', template_func=template)
 @csrf_token
 def reset():
     next_path = request.params.get('next', '/')
