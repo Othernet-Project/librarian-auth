@@ -43,9 +43,8 @@ def session_plugin(supervisor):
 def user_plugin(supervisor):
     # Set up a hook, so handlers that raise cannot escape session-saving
     @supervisor.app.hook('after_request')
-    def process_options():
+    def store_user_in_session():
         if hasattr(request, 'session') and hasattr(request, 'user'):
-            request.user.options.apply()
             request.session['user'] = request.user.to_json()
 
     def plugin(callback):
@@ -54,6 +53,7 @@ def user_plugin(supervisor):
             request.no_auth = supervisor.config['args'].no_auth
             user_data = request.session.get('user', '{}')
             request.user = User.from_json(user_data)
+            request.user.options.apply()
             return callback(*args, **kwargs)
 
         return wrapper

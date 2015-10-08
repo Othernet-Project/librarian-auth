@@ -1,7 +1,6 @@
 import functools
 
 from bottle import request, redirect
-
 from bottle_utils.i18n import i18n_path
 
 from .options import Options
@@ -17,12 +16,10 @@ def identify_database(func):
 
 @Options.handler('language')
 def handle_language(options, language):
-    return  # FIXME: find some way to check for original requested path
-    if language and request.locale == language:
-        # redirect only requests without a locale prefixed path
+    if request.query.get('action') == 'change':
+        options['language'] = request.locale
+    elif language and request.locale != language:
         redirect(i18n_path(locale=language))
-
-    options['language'] = request.locale
 
 
 @Options.handler('default_route')
