@@ -1,4 +1,4 @@
-<%inherit file="base.tpl"/>
+<%inherit file="/base.tpl"/>
 <%namespace name='login_form' file='_login.tpl'/>
 
 <%block name="title">
