@@ -28,13 +28,13 @@ def is_authenticated():
     return not request.no_auth and request.user.is_authenticated
 
 
-@roca_view('login', '_login', template_func=template)
+@roca_view('auth/login', 'auth/_login', template_func=template)
 @csrf_token
 def show_login_form():
     return dict(form=LoginForm(), next_path=request.params.get('next', '/'))
 
 
-@roca_view('login', '_login', template_func=template)
+@roca_view('auth/login', 'auth/_login', template_func=template)
 @csrf_protect
 def login():
     next_path = request.params.get('next', '/')
@@ -53,14 +53,14 @@ def logout():
     http_redirect(i18n_path(next_path))
 
 
-@roca_view('reset_password', '_reset_password', template_func=template)
+@roca_view('auth/reset_password', 'auth/_reset_password', template_func=template)
 @csrf_token
 def show_reset_form():
     next_path = request.params.get('next', '/')
     return dict(next_path=next_path, form=PasswordResetForm())
 
 
-@roca_view('reset_password', '_reset_password', template_func=template)
+@roca_view('auth/reset_password', 'auth/_reset_password', template_func=template)
 @csrf_token
 def reset():
     next_path = request.params.get('next', '/')

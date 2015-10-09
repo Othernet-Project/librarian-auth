@@ -21,7 +21,7 @@ from ..forms import EmergencyResetForm
 from ..users import User
 
 
-@roca_view('emergency_reset', '_emergency_reset', template_func=template)
+@roca_view('auth/emergency_reset', 'auth/_emergency_reset', template_func=template)
 @csrf_token
 def show_emergency_reset_form():
     config = request.app.config
@@ -46,7 +46,7 @@ def show_emergency_reset_form():
                 reset_token=User.generate_reset_token())
 
 
-@roca_view('emergency_reset', '_emergency_reset', template_func=template)
+@roca_view('auth/emergency_reset', 'auth/_emergency_reset', template_func=template)
 @csrf_protect
 def reset():
     reset_token = request.params.get('reset_token')
