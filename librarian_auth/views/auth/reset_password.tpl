@@ -1,4 +1,4 @@
-<%inherit file="/base.tpl"/>
+<%inherit file="/narrow_base.tpl"/>
 <%namespace name='reset_password_form' file='_reset_password.tpl'/>
 
 <%block name="title">
