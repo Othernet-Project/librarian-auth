@@ -55,16 +55,13 @@ def reset():
         return dict(form=form,
                     reset_token=reset_token)
 
-    db = request.db.sessions
-    query = db.Delete('users')
-    db.query(query)
-    query = db.Delete('sessions')
-    db.query(query)
+    request.db.users.query(request.db.users.Delete('users'))
+    request.db.sessions.query(request.db.sessions.Delete('sessions'))
     username = form.processed_data['username']
     User.create(username,
                 form.processed_data['password1'],
                 is_superuser=True,
-                db=request.db.sessions,
+                db=request.db.users,
                 overwrite=True,
                 reset_token=reset_token)
     return template('feedback.tpl',
