@@ -1,4 +1,4 @@
-${h.form('post', action=i18n_url('auth:login'))}
+${h.form('post', action=i18n_url('auth:login'), tabindex=1)}
     % if form.error:
     ${form.error}
     % endif
