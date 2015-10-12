@@ -16,7 +16,7 @@ def create_superuser(arg, supervisor):
         user = User.create(username=username,
                            password=password,
                            is_superuser=True,
-                           db=supervisor.exts.databases.sessions,
+                           db=supervisor.exts.databases.users,
                            overwrite=True)
         print("User created. The password reset token is: {}".format(
             user.reset_token))

@@ -7,6 +7,13 @@ create table groups
 );
 """
 
+SQL_CREATE_GROUP = """
+INSERT INTO groups (name, permissions, has_superpowers)
+VALUES ('superuser', '', 1);
+"""
+
 
 def up(db, conf):
     db.executescript(SQL)
+    # create superusers group
+    db.execute(SQL_CREATE_GROUP)
