@@ -1,7 +1,14 @@
-<%inherit file='/setup_base.tpl'/>
+<%inherit file='/setup/setup_base.tpl'/>
 
 <%block name="step_title">
-<h2>${_('Please enter the desired credentials for the superuser account.')}</h2>
+    <span class="icon icon-account-key"></span>
+    ${_('Superuser account')}
+</%block>
+
+<%block name="step_desc">
+    <p>
+        ${_('Superuser account is used to maintain the library and configure the receiver.')}
+    </p>
 </%block>
 
 <%block name="step">
@@ -30,7 +37,7 @@
         ${form.password2.error}
         % endif
     </p>
-    <p class="note">
+    <p class="superuser-note">
         <span class="label">${_('Password reset token')}</span>
         <span class="large">${reset_token}</span>
         <span class="field-help">
