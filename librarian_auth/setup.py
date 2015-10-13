@@ -1,7 +1,5 @@
 from bottle import request
 
-from librarian_setup.setup import setup_wizard
-
 from .forms import RegistrationForm
 from .helpers import identify_database
 from .users import User
@@ -14,15 +12,11 @@ def has_no_superuser(db):
     return db.result is None
 
 
-@setup_wizard.register_step('superuser', template='setup/step_superuser.tpl',
-                            method='GET', index=3, test=has_no_superuser)
 def setup_superuser_form():
     return dict(form=RegistrationForm(),
                 reset_token=User.generate_reset_token())
 
 
-@setup_wizard.register_step('superuser', template='setup/step_superuser.tpl',
-                            method='POST', index=3, test=has_no_superuser)
 def setup_superuser():
     form = RegistrationForm(request.forms)
     reset_token = request.params.get('reset_token')

@@ -3,6 +3,7 @@ import functools
 from bottle import request
 
 from .users import User
+from . import setup
 
 
 EXPORTS = {
