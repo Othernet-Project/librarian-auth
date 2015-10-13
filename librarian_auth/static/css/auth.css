@@ -1,0 +1,12 @@
+/* line 2, ../../../src/scss/auth.scss */
+.superuser-note .label {
+  font-weight: bold;
+  display: block;
+}
+/* line 10, ../../../src/scss/auth.scss */
+.superuser-note .large {
+  font-size: 200%;
+  letter-spacing: 0.3rem;
+  display: inline-block;
+  margin: 0.7rem 2rem;
+}

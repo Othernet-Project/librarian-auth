@@ -1,0 +1,19 @@
+.superuser-note {
+  .label {
+    // Typography
+    font-weight: bold;
+
+    // Basic geometry
+    display: block;
+  }
+
+  .large {
+    // Typography
+    font-size: 200%;
+    letter-spacing: 0.3rem;
+
+    // Basic geometry
+    display: inline-block;
+    margin: 0.7rem 2rem;
+  }
+}
