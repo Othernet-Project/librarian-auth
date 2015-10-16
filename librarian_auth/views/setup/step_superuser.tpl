@@ -1,7 +1,7 @@
 <%inherit file='/setup/setup_base.tpl'/>
 
 <%block name="step_title">
-    <span class="icon icon-account-key"></span>
+    <span class="icon icon-user-up"></span>
     ${_('Superuser account')}
 </%block>
 
