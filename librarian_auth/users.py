@@ -8,7 +8,6 @@ This software is free software licensed under the terms of GPLv3. See COPYING
 file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 """
 
-import datetime
 import functools
 import hashlib
 import json
@@ -18,6 +17,7 @@ import pbkdf2
 from bottle import request
 
 from librarian_core.contrib.auth.acl import BaseUser
+from librarian_core.utils import utcnow
 
 from .groups import Group
 from .helpers import identify_database
@@ -136,7 +136,7 @@ class User(BaseUser):
         user_data = {'username': username,
                      'password': encrypted,
                      'reset_token': hashed_token,
-                     'created': datetime.datetime.utcnow(),
+                     'created': utcnow(),
                      'options': {},
                      'groups': groups}
         user = cls(db=db, **user_data)
