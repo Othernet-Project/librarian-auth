@@ -11,6 +11,14 @@ file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 import copy
 import datetime
 import json
+import re
+
+import dateutil.parser
+
+from librarian_core.utils import is_string
+
+
+NUMERIC_RE = re.compile(r'^[\d\.]+$')
 
 
 class DateTimeEncoder(json.JSONEncoder):
@@ -30,15 +38,13 @@ class DateTimeDecoder(json.JSONDecoder):
                                               **kargs)
 
     def object_hook(self, obj):
-        if '__type__' not in obj:
-            return obj
-
-        obj_type = obj.pop('__type__')
-        try:
-            return datetime(**obj)
-        except Exception:
-            obj['__type__'] = obj_type
-            return obj
+        for key, value in obj.items():
+            if is_string(value) and not NUMERIC_RE.match(value) and value:
+                try:
+                    obj[key] = dateutil.parser.parse(value)
+                except (ValueError, TypeError):
+                    pass
+        return obj
 
 
 class Options(object):
