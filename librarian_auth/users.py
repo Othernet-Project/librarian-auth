@@ -110,7 +110,7 @@ class User(BaseUser):
         hashed_token = sha1.hexdigest()
         query = db.Select(sets='users', where='reset_token = ?')
         db.query(query, hashed_token)
-        return db.result
+        return cls(**row_to_dict(db.result))
 
     @classmethod
     @identify_database
