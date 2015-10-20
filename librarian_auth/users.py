@@ -115,7 +115,7 @@ class User(BaseUser):
     @classmethod
     @identify_database
     def create(cls, username, password, is_superuser=False, db=None,
-               overwrite=False, reset_token=None):
+               reset_token=None):
         if not username or not password:
             raise InvalidUserCredentials()
 

@@ -27,6 +27,5 @@ def setup_superuser():
                 form.processed_data['password1'],
                 is_superuser=True,
                 db=request.db.users,
-                overwrite=True,
                 reset_token=reset_token)
     return dict(successful=True)

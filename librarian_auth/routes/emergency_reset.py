@@ -62,7 +62,6 @@ def reset():
                 form.processed_data['password1'],
                 is_superuser=True,
                 db=request.db.users,
-                overwrite=True,
                 reset_token=reset_token)
     return template('feedback.tpl',
                     # Translators, used as page title on feedback page
