@@ -1,3 +1,5 @@
+<%namespace name="forms" file="/ui/forms.tpl"/>
+
 ${h.form('post', action=i18n_url('auth:login'), tabindex=1)}
     % if form.error:
     ${form.error}
@@ -5,20 +7,8 @@ ${h.form('post', action=i18n_url('auth:login'), tabindex=1)}
 
     ${csrf_tag()}
     <input type="hidden" name="next" value="${next_path}">
-    <p>
-        ${form.username.label}
-        ${form.username}
-        % if form.username.error:
-        ${form.username.error}
-        % endif
-    </p>
-    <p>
-        ${form.password.label}
-        ${form.password}
-        % if form.password.error:
-        ${form.password.error}
-        % endif
-    </p>
+    ${forms.field(form.username)}
+    ${forms.field(form.password)}
     <p class="buttons">
         <button type="submit" class="primary"><span class="icon"></span> ${_('Login')}</button>
     </p>

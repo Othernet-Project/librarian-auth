@@ -1,5 +1,7 @@
 <%inherit file='/setup/setup_base.tpl'/>
 
+<%namespace name="forms" file="/ui/forms.tpl"/>
+
 <%block name="step_title">
     <span class="icon icon-user-up"></span>
     ${_('Superuser account')}
@@ -16,27 +18,9 @@
     % if form.error:
     ${form.error}
     % endif
-    <p>
-        ${form.username.label}
-        ${form.username}
-        % if form.username.error:
-        ${form.username.error}
-        % endif
-    </p>
-    <p>
-        ${form.password1.label}
-        ${form.password1}
-        % if form.password1.error:
-        ${form.password1.error}
-        % endif
-    </p>
-    <p>
-        ${form.password2.label}
-        ${form.password2}
-        % if form.password2.error:
-        ${form.password2.error}
-        % endif
-    </p>
+    ${forms.field(form.username)}
+    ${forms.field(form.password1)}
+    ${forms.field(form.password2)}
     <p class="superuser-note">
         <span class="label">${_('Password reset token')}</span>
         <span class="large">${reset_token}</span>
