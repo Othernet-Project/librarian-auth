@@ -64,7 +64,7 @@ class User(BaseUser):
     @authenticated_only
     def logout(self):
         request.session.delete().reset()
-        request.user = User()
+        request.user = User(db=self.db)
 
     @authenticated_only
     def save(self):
