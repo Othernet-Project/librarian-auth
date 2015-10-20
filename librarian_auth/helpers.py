@@ -1,16 +1,6 @@
-import functools
-
 from bottle import request, response
 
 from .options import Options
-
-
-def identify_database(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        db = kwargs.pop('db', None) or request.db.users  # mustn't evaluate
-        return func(db=db, *args, **kwargs)
-    return wrapper
 
 
 @Options.collector('language')

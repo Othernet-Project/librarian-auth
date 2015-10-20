@@ -15,11 +15,11 @@ from bottle_utils.form import ValidationError
 from bottle_utils.csrf import csrf_protect, csrf_token
 from bottle_utils.i18n import i18n_path, i18n_url, lazy_gettext as _
 
+from librarian_core.contrib.auth.users import User
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template
 
 from ..forms import LoginForm, PasswordResetForm
-from ..users import User
 from ..utils import http_redirect
 
 

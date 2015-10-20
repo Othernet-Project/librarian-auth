@@ -1,8 +1,9 @@
 from bottle import request
 
+from librarian_core.contrib.auth.helpers import identify_database
+from librarian_core.contrib.auth.users import User
+
 from .forms import RegistrationForm
-from .helpers import identify_database
-from .users import User
 
 
 @identify_database

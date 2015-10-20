@@ -16,7 +16,7 @@ from bottle import request
 from bottle_utils import form
 from bottle_utils.i18n import lazy_gettext as _
 
-from .users import User
+from librarian_core.contrib.auth.users import User
 
 
 class TokenValidator(form.Validator):
