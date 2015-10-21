@@ -55,13 +55,13 @@ def reset():
         return dict(form=form,
                     reset_token=reset_token)
 
-    request.db.users.query(request.db.users.Delete('users'))
+    request.db.auth.query(request.db.auth.Delete('users'))
     request.db.sessions.query(request.db.sessions.Delete('sessions'))
     username = form.processed_data['username']
     User.create(username,
                 form.processed_data['password1'],
                 is_superuser=True,
-                db=request.db.users,
+                db=request.db.auth,
                 reset_token=reset_token)
     return template('feedback.tpl',
                     # Translators, used as page title on feedback page
