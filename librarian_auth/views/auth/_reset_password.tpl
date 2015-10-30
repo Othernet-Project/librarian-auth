@@ -1,7 +1,7 @@
+<%namespace name="forms" file="/ui/forms.tpl"/>
+
 ${h.form('post', action=i18n_url('auth:reset'))}
-    % if form.error:
-    ${form.error}
-    % endif
+    ${forms.form_errors([form.error]) if form.error else ''}
 
     ${csrf_tag()}
 
@@ -9,30 +9,18 @@ ${h.form('post', action=i18n_url('auth:reset'))}
 
     % if not request.user.is_authenticated:
     <p>
-        ${form.reset_token.label}
-        ${form.reset_token}
+        ${forms.field(form.reset_token)}
         <span class="field-help">
         ${_('This is the 6-digit number you were asked to write down when you created your user account.')}
         </span>
-        % if form.reset_token.error:
-        ${form.reset_token.error}
-        % endif
     </p>
     % endif
 
     <p>
-        ${form.password1.label}
-        ${form.password1}
-        % if form.password1.error:
-        ${form.password1.error}
-        % endif
+        ${forms.field(form.password1)}
     </p>
     <p>
-        ${form.password2.label}
-        ${form.password2}
-        % if form.password2.error:
-        ${form.password2.error}
-        % endif
+        ${forms.field(form.password2)}
     </p>
 
     <p class="buttons">
