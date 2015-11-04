@@ -71,6 +71,6 @@ def reset():
                     redirect_target=_('log-in page'),
                     # Translators, shown after emergency reset
                     message=_("You may now log in as "
-                              "'%(username)s'.") % {'username': username},
+                              "'{username}'.").format(username=username),
                     status='success',
                     redirect_url=i18n_url('auth:login_form'))

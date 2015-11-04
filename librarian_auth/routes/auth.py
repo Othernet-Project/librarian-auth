@@ -91,7 +91,7 @@ def reset():
                     # will be taken to log-in page..."
                     redirect_target=_('log-in page'),
                     # Translators, shown after password has been changed
-                    message=_("Password for username '%(username)s' has been "
-                              "set.") % {'username': username},
+                    message=_("Password for username '{username}' has been "
+                              "set.").format(username=username),
                     status='success',
                     redirect_url=login_url)
