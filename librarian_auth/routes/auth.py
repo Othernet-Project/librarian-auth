@@ -84,7 +84,7 @@ def reset():
         request.user.logout()
     login_url = i18n_url('auth:login_form') + set_qparam(
         next=next_path).to_qs()
-    return template('feedback.tpl',
+    return template('ui/feedback.tpl',
                     # Translators, used as page title on feedback page
                     page_title=_('New password was set'),
                     # Translators, used as link label on feedback page in "You

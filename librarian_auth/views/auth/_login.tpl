@@ -1,9 +1,7 @@
 <%namespace name="forms" file="/ui/forms.tpl"/>
 
 ${h.form('post', action=i18n_url('auth:login'), tabindex=1)}
-    % if form.error:
-    ${form.error}
-    % endif
+    ${forms.form_errors([form.error]) if form.error else ''}
 
     ${csrf_tag()}
     <input type="hidden" name="next" value="${next_path}">
