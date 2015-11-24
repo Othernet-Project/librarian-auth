@@ -8,9 +8,10 @@ from .forms import RegistrationForm
 
 @identify_database
 def has_no_superuser(db):
-    query = db.Select(sets='users', where="groups LIKE :group")
-    db.query(query, group='%superuser%')
-    return db.result is None
+    query = db.Select('COUNT(*) as count',
+                      sets='users',
+                      where="groups LIKE %s")
+    return db.fetchone(query, ('%superuser%',)) > 0
 
 
 def setup_superuser_form():
