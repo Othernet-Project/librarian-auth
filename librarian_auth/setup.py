@@ -11,7 +11,8 @@ def has_no_superuser(db):
     query = db.Select('COUNT(*) as count',
                       sets='users',
                       where="groups LIKE %s")
-    return db.fetchone(query, ('%superuser%',)) > 0
+    result = db.fetchone(query, ('%superuser%',))
+    return result['count'] == 0
 
 
 def setup_superuser_form():
