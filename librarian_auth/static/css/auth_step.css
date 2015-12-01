@@ -6,19 +6,19 @@
  * containing customized values _before_ this module.
  */
 /* line 4, ../../../src/scss/auth_step.scss */
-.superuser-note {
+.token-note {
   padding: 0.5rem;
   border: 1px solid #5d7b0a;
   background: rgba(93, 123, 10, 0.1);
   color: #5d7b0a;
 }
 /* line 13, ../../../src/scss/auth_step.scss */
-.superuser-note .label {
+.token-note .label {
   font-weight: bold;
   display: block;
 }
 /* line 21, ../../../src/scss/auth_step.scss */
-.superuser-note .large {
+.token-note .large {
   font-size: 200%;
   letter-spacing: 0.3rem;
   text-align: center;
