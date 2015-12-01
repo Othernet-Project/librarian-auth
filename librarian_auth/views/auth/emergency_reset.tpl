@@ -1,4 +1,4 @@
-<%inherit file='/base.tpl'/>
+<%inherit file='/narrow_base.tpl'/>
 <%namespace name='emergency_reset_form' file='_emergency_reset.tpl'/>
 
 ## Translators, used as page title
