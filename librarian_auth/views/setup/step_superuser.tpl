@@ -1,6 +1,7 @@
 <%inherit file='/setup/setup_base.tpl'/>
 
 <%namespace name="forms" file="/ui/forms.tpl"/>
+<%namespace name="note" file="/auth/_reset_token.tpl"/>
 
 <%block name="step_title">
     <span class="icon icon-user-up"></span>
@@ -21,16 +22,6 @@
     ${forms.field(form.username)}
     ${forms.field(form.password1)}
     ${forms.field(form.password2)}
-    <p class="superuser-note">
-        <span class="label">${_('Password reset token')}</span>
-        <span class="large">${reset_token}</span>
-        <span class="field-help">
-            ## Translators, shown as a message under the password reset token.
-            ## Password reset token is a 6-digit number that is used to reset
-            ## the user password.
-            ${_('Please write this password reset token down and store it securely. You will need it if you ever need to reset your password.')}
-        </span>
-        ${h.HIDDEN('reset_token', reset_token)}
-    </p>
+    ${note.token_note(reset_token)}
 </div>
 </%block>
