@@ -14,3 +14,6 @@
 </div>
 
 
+<%block name="extra_header">
+    <link rel="stylesheet" href="${assets['css/auth_note']}">
+</%block>
