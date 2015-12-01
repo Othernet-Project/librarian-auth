@@ -55,8 +55,8 @@ def reset():
         return dict(form=form,
                     reset_token=reset_token)
 
-    request.db.auth.query(request.db.auth.Delete('users'))
-    request.db.sessions.query(request.db.sessions.Delete('sessions'))
+    request.db.auth.execute(request.db.auth.Delete('users'))
+    request.db.sessions.execute(request.db.sessions.Delete('sessions'))
     username = form.processed_data['username']
     User.create(username,
                 form.processed_data['password1'],
