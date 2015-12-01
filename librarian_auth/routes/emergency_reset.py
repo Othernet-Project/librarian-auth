@@ -63,7 +63,7 @@ def reset():
                 is_superuser=True,
                 db=request.db.auth,
                 reset_token=reset_token)
-    return template('feedback.tpl',
+    return template('ui/feedback.tpl',
                     # Translators, used as page title on feedback page
                     page_title=_('Emergency reset successful'),
                     # Translators, used as link label on feedback page in "You
