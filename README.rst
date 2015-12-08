@@ -12,9 +12,9 @@ Installation
 
 The component has the following dependencies:
 
-- librarian_core_
-- librarian_setup_
-- librarian_menu_
+- librarian-core_
+- librarian-setup_
+- librarian-menu_
 
 To enable this component, add it to the list of components in librarian_'s
 `config.ini` file, e.g.::
@@ -47,8 +47,8 @@ use::
     make watch
 
 .. _librarian: https://github.com/Outernet-Project/librarian
-.. _librarian_core: https://github.com/Outernet-Project/librarian-core
-.. _librarian_setup: https://github.com/Outernet-Project/librarian-setup
-.. _librarian_menu: https://github.com/Outernet-Project/librarian-menu
+.. _librarian-core: https://github.com/Outernet-Project/librarian-core
+.. _librarian-setup: https://github.com/Outernet-Project/librarian-setup
+.. _librarian-menu: https://github.com/Outernet-Project/librarian-menu
 .. _compass: http://compass-style.org/
 .. _coffeescript: http://coffeescript.org/
