@@ -10,7 +10,7 @@ from .forms import RegistrationForm
 def has_no_superuser(db):
     query = db.Select('COUNT(*) as count',
                       sets='users',
-                      where="groups LIKE %s")
+                      where="groups LIKE ?")
     result = db.fetchone(query, ('%superuser%',))
     return result['count'] == 0
 
